@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 🧪 Testing con JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+
+    // 🥒 Cucumber + JUnit
+    testImplementation 'io.cucumber:cucumber-java:7.14.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.14.0'
+
+    // 🚀 Playwright
+    testImplementation 'com.microsoft.playwright:playwright:1.44.0'
+
+    // 📄 Otros (si los usas)
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.19'
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.3'
+    implementation 'org.apache.poi:poi:5.2.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    // Cambia si tu clase principal es distinta
+    mainClass = 'com.example.App'
+}
