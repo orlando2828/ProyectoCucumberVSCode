@@ -38,6 +38,8 @@ public class Login {
         ingresarUsuario(usuario);
         ingresarPassword(password);
         hacerClickEnAcceder();
+        System.out.println("hace clic en botón");
+        
     }
 
     // === Validación simple de login exitoso ===
