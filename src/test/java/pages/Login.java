@@ -1,35 +1,36 @@
 package pages;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 
 public class Login {
 
-
-    private WebDriver driver;
+    private final Page page;
 
     // === Localizadores ===
-    private By inputUsuario = By.id("imUname");
-    private By inputPassword = By.id("imPwd");
-    private By botonAcceder = By.xpath("//input[@value ='Ingresar a Demo']");
+    private final Locator inputUsuario;
+    private final Locator inputPassword;
+    private final Locator botonAcceder;
 
     // === Constructor ===
-    public Login(WebDriver driver) {
-        this.driver = driver;
+    public Login(Page page) {
+        this.page = page;
+        this.inputUsuario = page.locator("#imUname");
+        this.inputPassword = page.locator("#imPwd");
+        this.botonAcceder = page.locator("xpath=//input[@value='Ingresar a Demo']");
     }
 
     // === Acciones ===
     public void ingresarUsuario(String usuario) {
-        driver.findElement(inputUsuario).clear();
-        driver.findElement(inputUsuario).sendKeys(usuario);
+        inputUsuario.fill(usuario);
     }
 
     public void ingresarPassword(String password) {
-        driver.findElement(inputPassword).clear();
-        driver.findElement(inputPassword).sendKeys(password);
+        inputPassword.fill(password);
     }
 
     public void hacerClickEnAcceder() {
-        driver.findElement(botonAcceder).click();
+        botonAcceder.click();
     }
 
     // === Acción completa de login ===
@@ -41,10 +42,10 @@ public class Login {
 
     // === Validación simple de login exitoso ===
     public boolean loginExitoso() {
-        return driver.getCurrentUrl().contains("dashboard");
+        return page.url().contains("dashboard");
+    }
+
+     public void navegarALogin() {
+        page.navigate("https://qanovagroup.com/piloto"); // Reemplaza con tu URL real
     }
 }
-
-
-
-

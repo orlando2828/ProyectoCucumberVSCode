@@ -1,25 +1,22 @@
 package steps;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
+import io.cucumber.java.en.*;
 import pages.Login;
-import org.openqa.selenium.WebDriver;
-
-import driverNavegador.DriverContext; // ajusta si tu clase se llama distinto
+import hook.PlaywrightHook;
 
 public class LoginSteps {
-    WebDriver driver = driverNavegador.DriverContext.getDriver();
+
     Login login;
 
     @Given("el usuario accede a la página de login")
     public void acceder_a_pagina_login() {
-        login = new Login(driver); //se instancia la page
+        login = new Login(PlaywrightHook.page);
+        login.navegarALogin();
     }
 
     @When("ingresa credenciales validas : usuario {string} y password {string}")
     public void ingresar_credenciales_validas(String usuario, String password) {
-        login.login(usuario,password);
+        login.login(usuario, password);
     }
 
     @Then("debería ver la pantalla principal del sistema")
@@ -28,14 +25,12 @@ public class LoginSteps {
         if (!estaLogueado) {
             throw new AssertionError("No se accedió correctamente al sistema");
         }
-
     }
 
-    // 🆕 Nuevo step para usar en Background
     @Given("el usuario está logueado correctamente")
     public void el_usuario_esta_logueado_correctamente() {
-        login = new Login(driver);
+        login = new Login(PlaywrightHook.page);
+        login.navegarALogin();
         login.login("nvivas", "qanova");
     }
-
 }
